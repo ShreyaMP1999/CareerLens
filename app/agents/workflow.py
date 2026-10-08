@@ -27,10 +27,14 @@ def run_job_search_agent(state: AgentState) -> dict:
     if "ai engineer" in state.request.lower():
         state.query = "AI Backend Engineer"
     resume = parse_resume_text(state.resume_text)
-    filters = JobSearchFilters(title=state.query, max_age_days=state.max_age_days, max_experience_years=4)
+    filters = JobSearchFilters(
+        title=state.query, max_age_days=state.max_age_days, max_experience_years=4
+    )
     jobs = filter_jobs(demo_job_postings(), filters)
     state.ranked_jobs = [
-        item for item in rank_jobs_by_resume(resume, jobs) if item.match_score >= state.min_match_score
+        item
+        for item in rank_jobs_by_resume(resume, jobs)
+        if item.match_score >= state.min_match_score
     ][:3]
     for ranked in state.ranked_jobs:
         job_requirements = analyze_job_description(ranked.posting.description, ranked.posting.title)
@@ -62,4 +66,3 @@ def demo_main() -> None:  # pragma: no cover
         )
     )
     print(result)
-

@@ -1,10 +1,14 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "careerlens"
 version = "0.1.0"
 description = "Agentic AI Job Search Copilot with FastAPI, MCP, RAG, semantic matching, and Streamlit."
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "MIT" }
+license = "MIT"
 authors = [{ name = "Shreya Padaganur" }]
 dependencies = [
   "fastapi>=0.115",
@@ -45,6 +49,9 @@ careerlens-agent-demo = "app.agents.workflow:demo_main"
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+
+[tool.setuptools.packages.find]
+include = ["app", "app.*"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]

@@ -15,4 +15,3 @@ def test_agent_workflow_ranks_and_drafts():
     assert result["status"] == "completed"
     assert result["qualified_jobs"]
     assert result["drafts"]
-

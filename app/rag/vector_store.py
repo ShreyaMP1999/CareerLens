@@ -35,4 +35,3 @@ class LocalResumeVectorStore:
         ]
         ranked.sort(key=lambda item: item.score, reverse=True)
         return ranked[:k]
-

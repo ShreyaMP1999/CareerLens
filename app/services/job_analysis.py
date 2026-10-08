@@ -5,7 +5,6 @@ import re
 from app.schemas.domain import JobRequirements
 from app.services.skills import extract_skills, extract_years_experience
 
-
 PREFERRED_MARKERS = ("preferred", "nice to have", "bonus", "plus", "familiarity")
 
 

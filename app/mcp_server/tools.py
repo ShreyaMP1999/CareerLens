@@ -72,7 +72,11 @@ def rank_jobs(resume_text: str, query: str = "Python Backend Engineer") -> dict:
 
 
 def save_job(company: str, job_title: str, job_url: str, source: str = "manual") -> dict:
-    return asdict(tracker.save_job(ApplicationRecord(company=company, job_title=job_title, job_url=job_url, source=source)))
+    return asdict(
+        tracker.save_job(
+            ApplicationRecord(company=company, job_title=job_title, job_url=job_url, source=source)
+        )
+    )
 
 
 def update_application_status(application_id: str, status: str, note: str = "") -> dict:
@@ -102,7 +106,12 @@ def draft_email(
 def email_variations(base_body: str, evidence: list[str] | None = None) -> dict:
     from app.services.email_drafter import EmailDraft
 
-    base = EmailDraft("Recruiter outreach", base_body, evidence or [], validate_email_claims(base_body, evidence or []))
+    base = EmailDraft(
+        "Recruiter outreach",
+        base_body,
+        evidence or [],
+        validate_email_claims(base_body, evidence or []),
+    )
     return {"variations": [asdict(item) for item in generate_email_variations(base)]}
 
 

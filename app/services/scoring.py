@@ -64,10 +64,13 @@ def match_resume_to_job(
         for skill in required_missing[:5]
     ]
     if not suggestions:
-        suggestions.append("Tailor the top resume summary to mirror the strongest verified job requirements.")
+        suggestions.append(
+            "Tailor the top resume summary to mirror the strongest verified job requirements."
+        )
     explanation = (
-        f"Transparent score from required skill coverage ({req_score:.0%}), preferred skill coverage "
-        f"({pref_score:.0%}), experience evidence, education alignment, and lexical semantic overlap "
+        f"Transparent score from required skill coverage ({req_score:.0%}), "
+        f"preferred skill coverage ({pref_score:.0%}), experience evidence, "
+        "education alignment, and lexical semantic overlap "
         f"({similarity:.0%}). This is not a hiring probability."
     )
     return MatchReport(
@@ -99,4 +102,3 @@ def identify_skill_gaps(resume: ResumeProfile, job: JobRequirements) -> list[str
     _, _, missing_required = _coverage(job.required_skills, resume.skills)
     _, _, missing_preferred = _coverage(job.preferred_skills, resume.skills)
     return missing_required + [f"{skill} (preferred)" for skill in missing_preferred]
-

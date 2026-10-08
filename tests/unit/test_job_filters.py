@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from app.providers.demo_jobs import demo_job_postings
 from app.services.job_search import (
@@ -11,7 +11,7 @@ from app.services.job_search import (
 
 
 def test_freshness_and_experience_filters():
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     jobs = demo_job_postings(now)
     filtered = filter_jobs(
         jobs,
@@ -23,12 +23,11 @@ def test_freshness_and_experience_filters():
 
 
 def test_salary_filter_and_duplicate_detection():
-    jobs = demo_job_postings(datetime.now(timezone.utc))
-    jobs[0].posted_at = datetime.now(timezone.utc) - timedelta(days=1)
+    jobs = demo_job_postings(datetime.now(UTC))
+    jobs[0].posted_at = datetime.now(UTC) - timedelta(days=1)
     filtered = filter_jobs(jobs, JobSearchFilters(min_salary=130000, max_age_days=14))
     assert filtered
     duplicated = jobs + [jobs[0]]
     assert find_duplicate_jobs(duplicated)
     assert len(deduplicate_jobs(duplicated)) == len(jobs)
     assert normalize_job_url("https://www.example.com/jobs/123?x=1") == "example.com/jobs/123"
-

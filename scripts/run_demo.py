@@ -1,10 +1,9 @@
-from pathlib import Path
 import sys
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app.agents.workflow import AgentState, run_job_search_agent
-
 
 if __name__ == "__main__":
     resume = (

@@ -26,7 +26,14 @@ if "tracker" not in st.session_state:
 st.sidebar.title("CareerLens")
 page = st.sidebar.radio(
     "Page",
-    ["Dashboard", "Resume Matcher", "Fresh Job Finder", "AI Outreach", "Application Tracker", "Agent Demo"],
+    [
+        "Dashboard",
+        "Resume Matcher",
+        "Fresh Job Finder",
+        "AI Outreach",
+        "Application Tracker",
+        "Agent Demo",
+    ],
 )
 st.sidebar.caption("Demo data is clearly labeled. Live Adzuna search needs API credentials.")
 
@@ -50,7 +57,9 @@ elif page == "Resume Matcher":
         height=180,
     )
     if st.button("Analyze match"):
-        report = match_resume_to_job(parse_resume_text(resume_text), analyze_job_description(jd, "Role"))
+        report = match_resume_to_job(
+            parse_resume_text(resume_text), analyze_job_description(jd, "Role")
+        )
         st.metric("Match score", report.overall_score)
         st.write(asdict(report))
 
@@ -102,4 +111,3 @@ elif page == "Agent Demo":
     if st.button("Run workflow"):
         result = run_job_search_agent(AgentState(request=request, resume_text=resume_text))
         st.write(result)
-

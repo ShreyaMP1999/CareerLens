@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from urllib.parse import urlparse
 
 from app.schemas.domain import JobPosting, RankedJob, ResumeProfile, WorkArrangement
@@ -34,7 +34,11 @@ def normalize_job_url(url: str) -> str:
 def find_duplicate_jobs(jobs: list[JobPosting]) -> list[list[JobPosting]]:
     groups: dict[str, list[JobPosting]] = {}
     for job in jobs:
-        key = job.provider_id or normalize_job_url(job.url) or f"{job.company}:{job.title}:{job.location}"
+        key = (
+            job.provider_id
+            or normalize_job_url(job.url)
+            or f"{job.company}:{job.title}:{job.location}"
+        )
         groups.setdefault(key.lower(), []).append(job)
     return [group for group in groups.values() if len(group) > 1]
 
@@ -43,7 +47,9 @@ def deduplicate_jobs(jobs: list[JobPosting]) -> list[JobPosting]:
     seen: set[str] = set()
     unique: list[JobPosting] = []
     for job in jobs:
-        key = (job.provider_id or normalize_job_url(job.url) or f"{job.company}:{job.title}").lower()
+        key = (
+            job.provider_id or normalize_job_url(job.url) or f"{job.company}:{job.title}"
+        ).lower()
         if key not in seen:
             seen.add(key)
             unique.append(job)
@@ -55,7 +61,7 @@ def filter_jobs(
     filters: JobSearchFilters,
     now: datetime | None = None,
 ) -> list[JobPosting]:
-    current = now or datetime.now(timezone.utc)
+    current = now or datetime.now(UTC)
     filtered: list[JobPosting] = []
     keywords = [word.lower() for word in (filters.keywords or [])]
     for job in jobs:
@@ -105,4 +111,3 @@ def rank_jobs_by_resume(resume: ResumeProfile, jobs: list[JobPosting]) -> list[R
         )
     ranked.sort(key=lambda item: item.match_score, reverse=True)
     return ranked
-

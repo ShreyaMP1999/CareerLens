@@ -79,4 +79,3 @@ def split_evidence_sentences(text: str, limit: int = 12) -> list[str]:
     parts = re.split(r"(?<=[.!?])\s+|\n+", text)
     cleaned = [part.strip(" -\t") for part in parts if len(part.strip()) > 30]
     return cleaned[:limit]
-

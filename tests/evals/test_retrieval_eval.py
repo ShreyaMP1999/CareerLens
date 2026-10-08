@@ -12,4 +12,3 @@ def test_resume_retrieval_recall_at_k():
     results = store.query("user-1", "semantic search with ChromaDB", k=2)
     assert any("ChromaDB" in result.text for result in results)
     assert store.query("user-2", "ChromaDB", k=2) == []
-

@@ -29,4 +29,3 @@ def redact_secret(value: str) -> str:
     if not value:
         return ""
     return f"{value[:4]}...redacted"
-

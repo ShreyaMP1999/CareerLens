@@ -1,2 +1,1 @@
 """CareerLens application package."""
-

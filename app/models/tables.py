@@ -87,4 +87,3 @@ class AgentRun(Base, TimestampMixin):
 
 
 Index("ix_jobs_company_title", Job.company, Job.title)
-

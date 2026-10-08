@@ -11,4 +11,3 @@ def create_engine_and_sessionmaker():
         raise RuntimeError("Install SQLAlchemy to use the PostgreSQL database layer.") from exc
     engine = create_engine(get_settings().database_url, pool_pre_ping=True)
     return engine, sessionmaker(bind=engine, autoflush=False, autocommit=False)
-

@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from app.schemas.domain import ApplicationRecord, ApplicationStatus
 from app.services.email_drafter import create_gmail_draft, draft_recruiter_email
@@ -8,8 +8,12 @@ from app.services.tracker import ApplicationTracker
 
 
 def test_email_draft_is_grounded_and_gmail_requires_authorization():
-    resume = parse_resume_text("Built Python FastAPI services with PostgreSQL, Docker, pytest, and RAG.")
-    job = analyze_job_description("Requires Python, FastAPI, PostgreSQL, and Docker.", "Backend Engineer")
+    resume = parse_resume_text(
+        "Built Python FastAPI services with PostgreSQL, Docker, pytest, and RAG."
+    )
+    job = analyze_job_description(
+        "Requires Python, FastAPI, PostgreSQL, and Docker.", "Backend Engineer"
+    )
     draft = draft_recruiter_email(resume, job, "Acme AI", recruiter_name="Sam")
     assert "Acme AI" in draft.subject
     assert draft.evidence_used
@@ -25,7 +29,7 @@ def test_application_tracker_crud_analytics_and_followups():
             job_title="Backend Engineer",
             job_url="https://example.com/job/1",
             source="demo",
-            follow_up_date=datetime.now(timezone.utc),
+            follow_up_date=datetime.now(UTC),
         )
     )
     duplicate = tracker.save_job(
@@ -42,4 +46,3 @@ def test_application_tracker_crud_analytics_and_followups():
     assert analytics["total_jobs_discovered"] == 1
     assert analytics["total_applications_submitted"] == 1
     assert tracker.get_due_followups()
-

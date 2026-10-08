@@ -51,8 +51,10 @@ def create_app():
     def health() -> dict[str, str]:
         return {"status": "ok", "mode": "demo" if get_settings().demo_mode else "live"}
 
+    resume_upload = File(...)
+
     @app.post("/resumes/parse")
-    async def parse_resume(file: UploadFile = File(...)):
+    async def parse_resume(file: UploadFile = resume_upload):
         suffix = Path(file.filename or "resume.txt").suffix
         with NamedTemporaryFile(suffix=suffix) as handle:
             handle.write(await file.read())
@@ -124,4 +126,3 @@ def run() -> None:  # pragma: no cover
     import uvicorn
 
     uvicorn.run("app.api.main:app", host="0.0.0.0", port=8000, reload=True)
-

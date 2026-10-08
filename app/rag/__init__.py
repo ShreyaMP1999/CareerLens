@@ -1,2 +1,1 @@
 """Resume retrieval pipeline."""
-

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from app.schemas.domain import ApplicationRecord, ApplicationStatus
 from app.services.job_search import normalize_job_url
@@ -38,12 +38,14 @@ class ApplicationTracker:
         record = self.records[application_id]
         old_status = record.status
         record.status = new_status
-        record.updated_at = datetime.now(timezone.utc)
-        self.history.append(StatusEvent(application_id, old_status, new_status, record.updated_at, note))
+        record.updated_at = datetime.now(UTC)
+        self.history.append(
+            StatusEvent(application_id, old_status, new_status, record.updated_at, note)
+        )
         return record
 
     def get_due_followups(self, now: datetime | None = None) -> list[ApplicationRecord]:
-        current = now or datetime.now(timezone.utc)
+        current = now or datetime.now(UTC)
         return [
             record
             for record in self.records.values()
@@ -93,4 +95,3 @@ class ApplicationTracker:
             if normalize_job_url(record.job_url) == normalized:
                 return record
         return None
-

@@ -23,4 +23,3 @@ def redact_mapping(payload: dict[str, Any]) -> dict[str, Any]:
         else:
             redacted[key] = value
     return redacted
-

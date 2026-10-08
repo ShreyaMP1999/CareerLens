@@ -69,7 +69,9 @@ def parse_resume_text(text: str) -> ResumeProfile:
     experience = [
         sentence
         for sentence in split_evidence_sentences(text)
-        if re.search(r"\b(built|developed|implemented|led|designed|created|managed)\b", sentence, re.I)
+        if re.search(
+            r"\b(built|developed|implemented|led|designed|created|managed)\b", sentence, re.I
+        )
     ]
     projects = [
         sentence
@@ -86,4 +88,3 @@ def parse_resume_text(text: str) -> ResumeProfile:
         technologies=skills,
         chunks=chunk_text(text, chunk_size=90, overlap=15),
     )
-

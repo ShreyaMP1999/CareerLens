@@ -2,7 +2,10 @@ from app.mcp_server import tools
 
 
 def test_mcp_tool_functions_execute():
-    resume = "Built Python FastAPI services with PostgreSQL, Docker, pytest, LangGraph, MCP, RAG, and ChromaDB."
+    resume = (
+        "Built Python FastAPI services with PostgreSQL, Docker, pytest, "
+        "LangGraph, MCP, RAG, and ChromaDB."
+    )
     jd = "Requires Python, FastAPI, PostgreSQL, Docker, LangGraph, and ChromaDB."
     parsed = tools.parse_resume(resume)
     assert "python" in parsed["skills"]

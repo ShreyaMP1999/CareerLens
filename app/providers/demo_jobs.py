@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from app.schemas.domain import JobPosting, WorkArrangement
 
 
 def demo_job_postings(now: datetime | None = None) -> list[JobPosting]:
-    current = now or datetime.now(timezone.utc)
+    current = now or datetime.now(UTC)
     return [
         JobPosting(
             title="AI Backend Engineer",
@@ -58,4 +58,3 @@ def demo_job_postings(now: datetime | None = None) -> list[JobPosting]:
             salary_max=160000,
         ),
     ]
-
