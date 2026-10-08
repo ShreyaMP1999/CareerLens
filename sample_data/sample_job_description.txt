@@ -1,0 +1,6 @@
+AI Backend Engineer
+
+Build Python FastAPI services for agentic AI workflows using LangGraph, Model Context Protocol,
+RAG, ChromaDB, PostgreSQL, Docker, pytest, HTTPX, asyncio, and semantic search. Requires 3 years
+experience with backend APIs. Preferred: AWS and Gmail API integrations.
+

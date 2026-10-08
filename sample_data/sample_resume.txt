@@ -1,0 +1,12 @@
+Shreya Padaganur
+
+AI Backend Engineer with experience building Python FastAPI services, SQLAlchemy models,
+PostgreSQL-backed APIs, Dockerized applications, pytest suites, HTTPX integrations, asyncio
+workers, and GitHub Actions CI.
+
+Built a portfolio AI copilot using LangGraph, Model Context Protocol tools, ChromaDB, RAG,
+sentence transformers, semantic search, structured LLM outputs, and recruiter outreach
+generation grounded in resume evidence.
+
+Education: Bachelor of Science in Computer Science.
+

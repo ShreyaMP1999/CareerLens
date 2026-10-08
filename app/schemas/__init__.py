@@ -1,0 +1,2 @@
+"""Pydantic-compatible domain schemas."""
+

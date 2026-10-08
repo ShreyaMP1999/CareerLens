@@ -1,0 +1,2 @@
+"""JobPilot AI application package."""
+
