@@ -1,2 +1,2 @@
-"""JobPilot AI application package."""
+"""CareerLens application package."""
 

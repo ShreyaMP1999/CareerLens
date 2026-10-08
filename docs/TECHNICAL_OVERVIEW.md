@@ -1,6 +1,6 @@
 # Technical Overview
 
-JobPilot AI is organized around shared services. FastAPI, Streamlit, MCP tools, and the agent workflow call the same service layer so behavior remains consistent across interfaces.
+CareerLens is organized around shared services. FastAPI, Streamlit, MCP tools, and the agent workflow call the same service layer so behavior remains consistent across interfaces.
 
 ## Data Flow
 

@@ -24,7 +24,7 @@ def create_app():
     except Exception as exc:  # pragma: no cover
         raise RuntimeError("Install FastAPI dependencies to run the API.") from exc
 
-    app = FastAPI(title="JobPilot AI", version="0.1.0")
+    app = FastAPI(title="CareerLens", version="0.1.0")
 
     class MatchRequest(BaseModel):
         resume_text: str

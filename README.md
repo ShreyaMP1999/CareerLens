@@ -1,4 +1,4 @@
-# JobPilot AI
+# CareerLens
 
 Agentic AI Job Search Copilot for discovering fresh jobs, matching resumes with explainable evidence, drafting grounded recruiter outreach, and tracking applications.
 
@@ -71,7 +71,7 @@ Job finder:
 ## Setup
 
 ```bash
-cd jobpilot-ai
+cd CareerLens
 python3.11 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[dev]"
@@ -179,35 +179,30 @@ GitHub topics:
 
 Resume bullets:
 
-- Built JobPilot AI, an agentic job-search copilot with FastAPI, MCP tools, RAG-style resume retrieval, explainable scoring, recruiter outreach generation, and application tracking.
+- Built CareerLens, an agentic job-search copilot with FastAPI, MCP tools, RAG-style resume retrieval, explainable scoring, recruiter outreach generation, and application tracking.
 - Implemented modular Python services with provider adapters, deterministic tests, Docker, CI, and guarded external integrations for Adzuna job search and Gmail draft creation.
 
 60-second interview explanation:
 
-> JobPilot AI is a portfolio project that shows how I design AI applications beyond a single LLM call. A resume is parsed into structured evidence and searchable chunks, job descriptions are analyzed into required and preferred skills, and the match score is computed by a transparent weighted algorithm. MCP tools expose the same capabilities to agent clients, while FastAPI and Streamlit provide the backend and demo UI. The job finder uses an Adzuna adapter for live search when credentials are available and a clearly labeled demo provider otherwise. The outreach assistant only drafts claims grounded in resume evidence and flags risky claims. I added tests for matching, filtering, tracking, retrieval, MCP tool execution, and the agent workflow so the core behavior is reproducible without paid APIs.
+> CareerLens is a portfolio project that shows how I design AI applications beyond a single LLM call. A resume is parsed into structured evidence and searchable chunks, job descriptions are analyzed into required and preferred skills, and the match score is computed by a transparent weighted algorithm. MCP tools expose the same capabilities to agent clients, while FastAPI and Streamlit provide the backend and demo UI. The job finder uses an Adzuna adapter for live search when credentials are available and a clearly labeled demo provider otherwise. The outreach assistant only drafts claims grounded in resume evidence and flags risky claims. I added tests for matching, filtering, tracking, retrieval, MCP tool execution, and the agent workflow so the core behavior is reproducible without paid APIs.
 
 LinkedIn announcement:
 
-> I built JobPilot AI, an agentic AI job-search copilot that combines FastAPI, MCP tools, RAG-style resume retrieval, explainable resume-to-job matching, fresh job search adapters, recruiter outreach generation, and a Streamlit dashboard.
+> I built CareerLens, an agentic AI job-search copilot that combines FastAPI, MCP tools, RAG-style resume retrieval, explainable resume-to-job matching, fresh job search adapters, recruiter outreach generation, and a Streamlit dashboard.
 >
 > The project focuses on practical AI engineering patterns: shared service logic across API/MCP/UI layers, guarded side effects, deterministic tests, demo mode for missing credentials, and clear documentation for live integrations.
 
 ## Publishing
 
-GitHub CLI was not available in the initial environment check. To publish manually:
+Repository: https://github.com/ShreyaMP1999/CareerLens
+
+To publish a local checkout:
 
 ```bash
 git init
 git add .
-git commit -m "Initial commit: build JobPilot AI"
+git commit -m "Initial commit: build CareerLens"
 git branch -M main
-git remote add origin https://github.com/<your-username>/jobpilot-ai.git
+git remote add origin https://github.com/ShreyaMP1999/CareerLens.git
 git push -u origin main
 ```
-
-Create the public repository named `jobpilot-ai` on GitHub before pushing, or install/authenticate `gh` and run:
-
-```bash
-gh repo create jobpilot-ai --public --source=. --remote=origin --push
-```
-

@@ -13,7 +13,7 @@ from app.services.resume_parser import parse_resume_text
 from app.services.scoring import match_resume_to_job
 from app.services.tracker import ApplicationTracker
 
-st.set_page_config(page_title="JobPilot AI", layout="wide")
+st.set_page_config(page_title="CareerLens", layout="wide")
 
 SAMPLE_RESUME = (
     "Built Python FastAPI APIs with SQLAlchemy, PostgreSQL, Docker, pytest, HTTPX, asyncio, "
@@ -23,7 +23,7 @@ SAMPLE_RESUME = (
 if "tracker" not in st.session_state:
     st.session_state.tracker = ApplicationTracker()
 
-st.sidebar.title("JobPilot AI")
+st.sidebar.title("CareerLens")
 page = st.sidebar.radio(
     "Page",
     ["Dashboard", "Resume Matcher", "Fresh Job Finder", "AI Outreach", "Application Tracker", "Agent Demo"],

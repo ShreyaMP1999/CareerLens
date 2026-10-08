@@ -1,5 +1,5 @@
 [project]
-name = "jobpilot-ai"
+name = "careerlens"
 version = "0.1.0"
 description = "Agentic AI Job Search Copilot with FastAPI, MCP, RAG, semantic matching, and Streamlit."
 readme = "README.md"
@@ -38,9 +38,9 @@ dev = [
 ]
 
 [project.scripts]
-jobpilot-api = "app.api.main:run"
-jobpilot-mcp = "app.mcp_server.server:main"
-jobpilot-agent-demo = "app.agents.workflow:demo_main"
+careerlens-api = "app.api.main:run"
+careerlens-mcp = "app.mcp_server.server:main"
+careerlens-agent-demo = "app.agents.workflow:demo_main"
 
 [tool.ruff]
 line-length = 100

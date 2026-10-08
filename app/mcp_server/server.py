@@ -9,7 +9,7 @@ def build_server():
     except Exception as exc:  # pragma: no cover
         raise RuntimeError("Install the official MCP Python SDK to run the MCP server.") from exc
 
-    mcp = FastMCP("JobPilot AI")
+    mcp = FastMCP("CareerLens")
 
     mcp.tool(name="parse_resume", description="Parse resume text into skills, experience, education, projects, and chunks.")(tools.parse_resume)
     mcp.tool(name="analyze_job_description", description="Extract required and preferred skills from a job description.")(tools.analyze_job)
