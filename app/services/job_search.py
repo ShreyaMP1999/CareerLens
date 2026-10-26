@@ -31,25 +31,33 @@ def normalize_job_url(url: str) -> str:
     return f"{host}{path}"
 
 
+def _job_identity(job: JobPosting) -> tuple[str, ...]:
+    """Scope provider IDs to their source and share fallback rules across callers."""
+    if job.provider_id:
+        return ("provider", job.source.strip().casefold(), job.provider_id)
+    normalized_url = normalize_job_url(job.url)
+    if normalized_url:
+        return ("url", normalized_url)
+    return (
+        "details",
+        job.company.strip().casefold(),
+        job.title.strip().casefold(),
+        job.location.strip().casefold(),
+    )
+
+
 def find_duplicate_jobs(jobs: list[JobPosting]) -> list[list[JobPosting]]:
-    groups: dict[str, list[JobPosting]] = {}
+    groups: dict[tuple[str, ...], list[JobPosting]] = {}
     for job in jobs:
-        key = (
-            job.provider_id
-            or normalize_job_url(job.url)
-            or f"{job.company}:{job.title}:{job.location}"
-        )
-        groups.setdefault(key.lower(), []).append(job)
+        groups.setdefault(_job_identity(job), []).append(job)
     return [group for group in groups.values() if len(group) > 1]
 
 
 def deduplicate_jobs(jobs: list[JobPosting]) -> list[JobPosting]:
-    seen: set[str] = set()
+    seen: set[tuple[str, ...]] = set()
     unique: list[JobPosting] = []
     for job in jobs:
-        key = (
-            job.provider_id or normalize_job_url(job.url) or f"{job.company}:{job.title}"
-        ).lower()
+        key = _job_identity(job)
         if key not in seen:
             seen.add(key)
             unique.append(job)

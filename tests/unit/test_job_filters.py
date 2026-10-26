@@ -1,4 +1,7 @@
+from dataclasses import replace
 from datetime import UTC, datetime, timedelta
+
+import pytest
 
 from app.providers.demo_jobs import demo_job_postings
 from app.services.job_search import (
@@ -31,3 +34,54 @@ def test_salary_filter_and_duplicate_detection():
     assert find_duplicate_jobs(duplicated)
     assert len(deduplicate_jobs(duplicated)) == len(jobs)
     assert normalize_job_url("https://www.example.com/jobs/123?x=1") == "example.com/jobs/123"
+
+
+@pytest.mark.parametrize(
+    ("first_changes", "second_changes", "is_duplicate"),
+    [
+        (
+            {"source": "provider-a", "provider_id": "123"},
+            {"source": "provider-b", "provider_id": "123"},
+            False,
+        ),
+        (
+            {"source": "provider-a", "provider_id": "123"},
+            {"source": "provider-a", "provider_id": "123", "url": "https://other.com/123"},
+            True,
+        ),
+        (
+            {"source": "provider-a", "provider_id": "ABC"},
+            {"source": "provider-a", "provider_id": "abc"},
+            False,
+        ),
+        (
+            {"provider_id": None, "url": "https://www.example.com/jobs/123?ref=a"},
+            {"provider_id": None, "url": "https://example.com/jobs/123/"},
+            True,
+        ),
+        (
+            {"provider_id": None, "url": "https://example.com/jobs/ABC"},
+            {"provider_id": None, "url": "https://example.com/jobs/abc"},
+            False,
+        ),
+        (
+            {"provider_id": None, "url": "", "location": "Seattle"},
+            {"provider_id": None, "url": "", "location": "Boston"},
+            False,
+        ),
+        (
+            {"provider_id": None, "url": "", "location": "Seattle"},
+            {"provider_id": None, "url": "", "location": " seattle "},
+            True,
+        ),
+    ],
+)
+def test_duplicate_detection_and_removal_use_consistent_job_identity(
+    first_changes, second_changes, is_duplicate
+):
+    original = demo_job_postings(datetime.now(UTC))[0]
+    first = replace(original, **first_changes)
+    second = replace(original, **second_changes)
+    jobs = [first, second]
+    assert find_duplicate_jobs(jobs) == ([jobs] if is_duplicate else [])
+    assert deduplicate_jobs(jobs) == ([first] if is_duplicate else jobs)
