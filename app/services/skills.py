@@ -61,7 +61,8 @@ def extract_skills(text: str) -> list[str]:
         if re.search(pattern, lowered):
             found.add(normalize_skill(skill))
     for alias, canonical in ALIASES.items():
-        if alias in lowered:
+        pattern = r"(?<![a-z0-9])" + re.escape(alias) + r"(?![a-z0-9])"
+        if re.search(pattern, lowered):
             found.add(canonical)
     return sorted(found)
 
